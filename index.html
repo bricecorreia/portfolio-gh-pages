@@ -24,8 +24,9 @@
     <link rel="stylesheet" href="./src/css/path.css" />
     <link rel="stylesheet" href="./src/css/skill-box.css" />
     <link rel="stylesheet" href="./src/css/list.css" />
-    <link rel="favicon" href="./src/img/favicon.png" />
-    <!-- <script defer src="./src/js/main.js"></script> -->
+    <link rel="favicon" href="./src/img/favicon.ico" />
+    <script defer src="./src/js/components/focusRealization.js"></script>
+    <script defer src="./src/js/app.js"></script>
 </head>
 
 <body>
@@ -143,7 +144,7 @@
                         <p class="thumbnail-title">BlaBlaQuest</p>
                         <p class="thumbnail-description">Site communautaire pour passionner de jeux de société...</p>
                         <div class="thumbnail-footer">
-                            <a href="http://blabla-quest.surge.sh/" target="_blank">En savoir plus</a>
+                            <a href="http://blabla-quest.surge.sh/" target="_blank">En savoir plus...</a>
                         </div>
                     </div>
                 </div>
@@ -166,8 +167,25 @@
                     </div>
                 </div>
             </section>
-            </div>
+        </div>
     </div>
+
+    <template id="realization-template">
+        <h2>Réalisations</h2>
+        <div class="thumbnail">
+            <div class="thumbnail-cover" style="background-image: url(./src/img/bbq-home-page1.png)"></div>
+            <div class="thumbnail-content">
+                <span class="badge">Site</span>
+                <p class="thumbnail-title">BlaBlaQuest</p>
+                <p class="thumbnail-description">Site communautaire pour passionner de jeux de société...</p>
+                <div class="thumbnail-footer">
+                    <a href="http://blabla-quest.surge.sh/" target="_blank">En savoir plus...</a>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </template>
+
 </body>
 
 </html>
