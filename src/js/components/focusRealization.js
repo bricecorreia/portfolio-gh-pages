@@ -20,8 +20,7 @@ let focusRealization = {
         if (div.classList.contains("page")) {
             console.log("page split");
             document.querySelector(".page").className = "page-split";
-        } 
-        else {
+        } else {
 
             document.querySelector(".page-split").className = "page";
         }
@@ -32,23 +31,31 @@ let focusRealization = {
 
         let realizationSection = document.querySelector(".realization-split");
 
-        // console.log(realizationTarget);
+        console.log('Clear realisation init');
 
         if (realizationSection) {
 
-            realizationSection.remove();
+            console.log('realization exist !');
 
             // Si la section affichée est la même que la section demandée, repasse la page d'acceuil en plein écran
-            if (realizationTarget.querySelector(".thumbnail-title").textContent == realizationSection.querySelector(".realization.title") ){
+            if (realizationTarget.querySelector(".thumbnail-title").content == realizationSection.querySelector(".realization-title").content) {
 
-                document.querySelector(".page-split").className = "page"
+                console.log('thumbnail target = realization displayed !')
+                realizationSection.remove();
+                focusRealization.changePageClass();
+
+                return true;
             }
+
+            realizationSection.remove();
+
+            return;
 
         } else {
 
             // Fait de la place pour le focus sur la réalisation
             focusRealization.changePageClass();
-            
+
         }
 
     },
@@ -94,6 +101,12 @@ let focusRealization = {
 
     },
 
+    sectionExist: function () {
+
+        //TODO : refactorisation de la logique de check si une real est déjà display
+
+    },
+
     /**
      * Méthode gérant le focus sur une réalisation
      * @param {Event} evt 
@@ -104,13 +117,18 @@ let focusRealization = {
         let realizationTarget = evt.currentTarget;
 
         // Clean la section réalisation si elle existe déjà
-        focusRealization.cleareRealizationSection(realizationTarget);
 
-        // Crée la section réalisation
-        focusRealization.createRealizationSection(realizationTarget);
+        if (focusRealization.cleareRealizationSection(realizationTarget) == true) {
 
+            focusRealization.cleareRealizationSection(realizationTarget);
+            return;
 
+        } else {
 
+            focusRealization.cleareRealizationSection(realizationTarget);
+            // Crée la section réalisation
+            focusRealization.createRealizationSection(realizationTarget);
+        };
     },
 
 };
