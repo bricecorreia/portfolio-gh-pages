@@ -75,7 +75,7 @@ let focusRealization = {
         // Récupération des datas du thumbnail selectionné
         let realisationClass = Array;
 
-        realisationClass = ['badge', 'title', 'description'];
+        realisationClass = ['badge', 'title', 'description', 'indepth'];
 
         realisationClass.forEach(element => {
 
