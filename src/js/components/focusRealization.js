@@ -31,16 +31,11 @@ let focusRealization = {
 
         let realizationSection = document.querySelector(".realization-split");
 
-        console.log('Clear realisation init');
-
         if (realizationSection) {
-
-            console.log('realization exist !');
 
             // Si la section affichée est la même que la section demandée, repasse la page d'acceuil en plein écran
             if (realizationTarget.querySelector(".thumbnail-title").content == realizationSection.querySelector(".realization-title").content) {
 
-                console.log('thumbnail target = realization displayed !')
                 realizationSection.remove();
                 focusRealization.changePageClass();
 

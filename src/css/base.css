@@ -72,6 +72,17 @@ hr {
     color: white;
 }
 
+.repo-portfolio a{
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    font-size: 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
 [disabled]{
     opacity: 0.3;
 }
