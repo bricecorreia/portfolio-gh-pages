@@ -3,8 +3,12 @@ let focusRealization = {
     init: function () {
         console.log('init focusRealization ok')
 
-        let realizationElement = document.querySelector(".thumbnail");
-        realizationElement.addEventListener("click", focusRealization.handleRealizationFocus);
+        let realizationElements = document.querySelectorAll(".thumbnail");
+
+        realizationElements.forEach(realization => {
+            realization.addEventListener("click", focusRealization.handleRealizationFocus)
+        })
+
     },
 
     //======================================
@@ -17,9 +21,11 @@ let focusRealization = {
     changePageClass: function () {
 
         let div = document.querySelector("div");
+
         if (div.classList.contains("page")) {
-            console.log("page split");
+
             document.querySelector(".page").className = "page-split";
+
         } else {
 
             document.querySelector(".page-split").className = "page";
@@ -27,32 +33,17 @@ let focusRealization = {
     },
 
     // Clean la section realization si elle existe déjà
-    cleareRealizationSection: function (realizationTarget) {
+    cleareRealizationSection: function () {
 
         let realizationSection = document.querySelector(".realization-split");
 
-        if (realizationSection) {
+        if (realizationSection != undefined) {
 
-            // Si la section affichée est la même que la section demandée, repasse la page d'acceuil en plein écran
-            if (realizationTarget.querySelector(".thumbnail-title").content == realizationSection.querySelector(".realization-title").content) {
-
-                realizationSection.remove();
-                focusRealization.changePageClass();
-
-                return true;
-            }
-
+            console.log("Realisation remove")
             realizationSection.remove();
-
-            return;
-
         } else {
-
-            // Fait de la place pour le focus sur la réalisation
-            focusRealization.changePageClass();
-
+            console.log("Pas de réalisation à remove")
         }
-
     },
 
     createRealizationSection: function (realizationTarget) {
@@ -96,10 +87,24 @@ let focusRealization = {
 
     },
 
-    sectionExist: function () {
+    sectionExist: function (realizationTarget) {
 
-        //TODO : refactorisation de la logique de check si une real est déjà display
+        let realizationSection = document.querySelector(".realization-split");
 
+        if (realizationSection != undefined) {
+
+            // Si la section affichée est la même que la section demandée, retourne true
+            if (realizationTarget.querySelector(".thumbnail-title").textContent === realizationSection.querySelector(".realization-title").textContent) {
+
+
+                console.log("La réalisation est déjà display !");
+                return true;
+            }
+
+        } else {
+
+            return false;
+        }
     },
 
     /**
@@ -110,20 +115,28 @@ let focusRealization = {
         evt.preventDefault();
 
         let realizationTarget = evt.currentTarget;
-
-        // Clean la section réalisation si elle existe déjà
-
-        if (focusRealization.cleareRealizationSection(realizationTarget) == true) {
-
-            focusRealization.cleareRealizationSection(realizationTarget);
-            return;
-
+        let realizationSection = document.querySelector(".realization-split");
+        
+        if (focusRealization.sectionExist(realizationTarget) === true) {
+            
+            console.log("clear et changePage");
+            // Clean la section réalisation si elle existe déjà
+            focusRealization.cleareRealizationSection();
+            // focusRealization.cleareRealizationSection();
+            
+            
         } else {
-
-            focusRealization.cleareRealizationSection(realizationTarget);
+            
+            if (realizationSection != undefined) {
+                
+                focusRealization.changePageClass();
+            }
+            // Clean la section réalisation si elle existe déjà
+            focusRealization.cleareRealizationSection();
             // Crée la section réalisation
             focusRealization.createRealizationSection(realizationTarget);
         };
+        focusRealization.changePageClass();
     },
 
 };
