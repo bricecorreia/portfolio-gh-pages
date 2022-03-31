@@ -31,8 +31,8 @@ body {
 
 .page-split {
     position: relative;
-    height: auto;
-    width: auto;
+    height: 50%;
+    width: 50%;
     display: flex;
     align-items: center;
     align-content: center;
@@ -77,6 +77,11 @@ hr {
 }
 
 @media screen and (max-width: 500px){
+
+    body {
+        flex-direction: column;
+        width: 100%;
+    }
     .button {
         margin: 5px 10px;
     }
