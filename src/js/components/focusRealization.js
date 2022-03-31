@@ -18,34 +18,78 @@ let focusRealization = {
 
         let div = document.querySelector("div");
         if (div.classList.contains("page")) {
-
             console.log("page split");
             document.querySelector(".page").className = "page-split";
-        } else {
+        } 
+        else {
 
             document.querySelector(".page-split").className = "page";
         }
     },
 
+    // Clean la section realization si elle existe déjà
+    cleareRealizationSection: function (realizationTarget) {
+
+        let realizationSection = document.querySelector(".realization-split");
+
+        // console.log(realizationTarget);
+
+        if (realizationSection) {
+
+            realizationSection.remove();
+
+            // Si la section affichée est la même que la section demandée, repasse la page d'acceuil en plein écran
+            if (realizationTarget.querySelector(".thumbnail-title").textContent == realizationSection.querySelector(".realization.title") ){
+
+                document.querySelector(".page-split").className = "page"
+            }
+
+        } else {
+
+            // Fait de la place pour le focus sur la réalisation
+            focusRealization.changePageClass();
+            
+        }
+
+    },
+
     createRealizationSection: function (realizationTarget) {
 
-        // // Récupère l'élément <template>
-        // let realizationTemplateElement = document.querySelector("#realization-template");
+        // Récupère l'élément <template>
+        let realizationTemplateElement = document.querySelector("#realization-template");
 
-        // // Récupère le contenu du template
-        // let realizationTemplateElementContent = realizationTemplateElement.content;
-        
-        // // Clonage du contenu du template
-        // let realizationCloneElementFragment = realizationTemplateElementContent.cloneNode(true);
+        // Récupère le contenu du template
+        let realizationTemplateElementContent = realizationTemplateElement.content;
 
-        // console.log(realizationCloneElementFragment)
-        
-        realizationClassSwitch = realizationTarget.replace(/thumbnail/g, 'realization');
+        // Clonage du contenu du template
+        let realizationCloneElementFragment = realizationTemplateElementContent.cloneNode(true);
 
-        console.log(realizationClassSwitch);
 
-        let createRealizationElement = document.createElement("div")
+        // Récupération des datas du thumbnail selectionné
+        let realisationClass = Array;
 
+        realisationClass = ['badge', 'title', 'description'];
+
+        realisationClass.forEach(element => {
+
+            realizationCloneElementFragment.querySelector(".realization-" + element).textContent = realizationTarget.querySelector(".thumbnail-" + element).textContent;
+        });
+
+        // Exceptions pour href et style :
+        realizationCloneElementFragment.querySelector(".realization-cover").style = realizationTarget.querySelector(".thumbnail-cover").getAttribute("style");
+
+        realizationCloneElementFragment.querySelector("a").href = realizationTarget.querySelector("a").getAttribute("href");
+
+        // Création de la div realization
+        let createRealizationElement = document.createElement("div");
+
+        createRealizationElement.setAttribute("class", "realization-split");
+
+        createRealizationElement.appendChild(realizationCloneElementFragment);
+
+
+        // Injection de la div dans le body
+        document.body.appendChild(createRealizationElement);
 
 
     },
@@ -58,14 +102,14 @@ let focusRealization = {
         evt.preventDefault();
 
         let realizationTarget = evt.currentTarget;
-        console.log(realizationTarget);
 
-        // Fait de la place pour le focus
-        focusRealization.changePageClass();
+        // Clean la section réalisation si elle existe déjà
+        focusRealization.cleareRealizationSection(realizationTarget);
 
+        // Crée la section réalisation
         focusRealization.createRealizationSection(realizationTarget);
 
-        let body = document.querySelector("body");
+
 
     },
 

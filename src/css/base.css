@@ -1,4 +1,5 @@
 body {
+    display: flex;
     position: relative;
     width: 100%;
     margin: 0;
@@ -30,8 +31,8 @@ body {
 
 .page-split {
     position: relative;
-    height: 100vh;
-    width: 50%;
+    height: auto;
+    width: auto;
     display: flex;
     align-items: center;
     align-content: center;
