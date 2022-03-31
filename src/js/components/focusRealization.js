@@ -39,7 +39,10 @@ let focusRealization = {
 
         if (realizationSection != undefined) {
 
+            console.log("Realisation remove")
             realizationSection.remove();
+        } else {
+            console.log("Pas de réalisation à remove")
         }
     },
 
@@ -112,23 +115,28 @@ let focusRealization = {
         evt.preventDefault();
 
         let realizationTarget = evt.currentTarget;
-
-        // Clean la section réalisation si elle existe déjà
-        focusRealization.cleareRealizationSection();
-
+        let realizationSection = document.querySelector(".realization-split");
+        
         if (focusRealization.sectionExist(realizationTarget) === true) {
-
+            
             console.log("clear et changePage");
+            // Clean la section réalisation si elle existe déjà
+            focusRealization.cleareRealizationSection();
             // focusRealization.cleareRealizationSection();
-            focusRealization.changePageClass();
             
             
         } else {
             
-            focusRealization.changePageClass();
+            if (realizationSection != undefined) {
+                
+                focusRealization.changePageClass();
+            }
+            // Clean la section réalisation si elle existe déjà
+            focusRealization.cleareRealizationSection();
             // Crée la section réalisation
             focusRealization.createRealizationSection(realizationTarget);
         };
+        focusRealization.changePageClass();
     },
 
 };
