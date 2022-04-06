@@ -1,13 +1,14 @@
 let focusRealization = {
 
     init: function () {
-        console.log('init focusRealization ok')
 
         let realizationElements = document.querySelectorAll(".thumbnail");
 
         realizationElements.forEach(realization => {
             realization.addEventListener("click", focusRealization.handleRealizationFocus)
-        })
+        });
+
+
 
     },
 
@@ -18,6 +19,14 @@ let focusRealization = {
 
     // Place le contenu de la page sur le côté si elle n'y est pas.
     // Si elle y est : la place au centre
+
+    listenerInTemplate: function() {
+
+        let closeBtnElement = document.querySelector(".close-realization");
+
+        closeBtnElement.addEventListener("click", focusRealization.handleRealizationClose);
+    },
+
     changePageClass: function () {
 
         let div = document.querySelector("div");
@@ -39,10 +48,7 @@ let focusRealization = {
 
         if (realizationSection != undefined) {
 
-            console.log("Realisation remove")
             realizationSection.remove();
-        } else {
-            console.log("Pas de réalisation à remove")
         }
     },
 
@@ -96,8 +102,6 @@ let focusRealization = {
             // Si la section affichée est la même que la section demandée, retourne true
             if (realizationTarget.querySelector(".thumbnail-title").textContent === realizationSection.querySelector(".realization-title").textContent) {
 
-
-                console.log("La réalisation est déjà display !");
                 return true;
             }
 
@@ -119,12 +123,9 @@ let focusRealization = {
         
         if (focusRealization.sectionExist(realizationTarget) === true) {
             
-            console.log("clear et changePage");
             // Clean la section réalisation si elle existe déjà
             focusRealization.cleareRealizationSection();
-            // focusRealization.cleareRealizationSection();
-            
-            
+                
         } else {
             
             if (realizationSection != undefined) {
@@ -135,8 +136,18 @@ let focusRealization = {
             focusRealization.cleareRealizationSection();
             // Crée la section réalisation
             focusRealization.createRealizationSection(realizationTarget);
+            focusRealization.listenerInTemplate();
         };
         focusRealization.changePageClass();
     },
+
+    handleRealizationClose: function (evt) {
+
+        evt.preventDefault();
+
+        console.log('lol');
+        focusRealization.cleareRealizationSection();
+        focusRealization.changePageClass();
+    }
 
 };
