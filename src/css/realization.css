@@ -1,3 +1,8 @@
+.realization-container {
+    display : flex;
+    flex-wrap: wrap;
+}
+
 .realization-split {
     display: inline-block;
     border-radius: 11px;
